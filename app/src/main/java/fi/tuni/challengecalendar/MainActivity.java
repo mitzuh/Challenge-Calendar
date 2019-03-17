@@ -1,8 +1,12 @@
 package fi.tuni.challengecalendar;
 
+import android.content.Intent;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.EventLog;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
@@ -32,5 +36,10 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(d + "." + m + "." + year);
             }
         });
+    }
+
+    public void showChallenges(View v) {
+        Intent i = new Intent(this, ChallengeViewActivity.class);
+        startActivity(i);
     }
 }
