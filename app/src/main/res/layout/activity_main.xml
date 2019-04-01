@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Add Challenge"
-            android:onClick="addChallenge"/>
+            android:onClick="makeChallenge"/>
         <Button
             android:id="@+id/viewButton"
             android:layout_width="wrap_content"

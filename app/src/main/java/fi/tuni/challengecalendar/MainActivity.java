@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler databaseHandler;
 
+    TextView textView;
+    CalendarView calendarView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHandler = new DatabaseHandler(this);
 
-        // Temporal. Will be removed after challenges can be added manually.
-        databaseHandler.addChallenge(new Challenge(1, "Test", "11.11.2019"));
-        databaseHandler.addChallenge(new Challenge(2, "Test2", "30.03.2019"));
-
-        final TextView textView = findViewById(R.id.dateText);
-        final CalendarView calendarView = findViewById(R.id.calendarView);
+        textView = findViewById(R.id.dateText);
+        calendarView = findViewById(R.id.calendarView);
 
         final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String selectedDate = sdf.format(new Date(calendarView.getDate()));
@@ -60,7 +60,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void addChallenge(View v) {
+    public void makeChallenge(View v) {
+        Intent i = new Intent(this, AddChallengeActivity.class);
+        Bundle b = new Bundle();
 
+        b.putString("date", String.valueOf(textView.getText()));
+        i.putExtras(b);
+
+        startActivity(i);
     }
 }
