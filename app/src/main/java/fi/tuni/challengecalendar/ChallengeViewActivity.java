@@ -1,12 +1,11 @@
 package fi.tuni.challengecalendar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
-
-import java.util.Date;
+import java.util.ArrayList;
 
 public class ChallengeViewActivity extends AppCompatActivity {
     @Override
@@ -14,9 +13,14 @@ public class ChallengeViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge_view);
 
-        Challenge [] challenges = new Challenge[2];
-        challenges[0] = new Challenge("Challenge 1", new Date());
-        challenges[1] = new Challenge("Challenge 2", new Date());
+        Intent intent = getIntent();
+        ArrayList<Challenge> list = (ArrayList<Challenge>) intent.getExtras().get("challenges");
+
+        Challenge [] challenges = new Challenge[list.size()];
+
+        for (int i=0; i< list.size(); i++) {
+            challenges[i] = new Challenge(list.get(i).id, list.get(i).name, list.get(i).date);
+        }
 
         ArrayAdapter<Challenge> adapter = new ArrayAdapter<Challenge>(this,
                                             android.R.layout.simple_list_item_1, challenges);

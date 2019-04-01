@@ -1,28 +1,36 @@
 package fi.tuni.challengecalendar;
 
 import android.content.Intent;
-import android.provider.CalendarContract;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.EventLog;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    DatabaseHandler databaseHandler;
+
+    TextView textView;
+    CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView textView = findViewById(R.id.dateText);
-        final CalendarView calendarView = findViewById(R.id.calendarView);
+        databaseHandler = new DatabaseHandler(this);
+
+        textView = findViewById(R.id.dateText);
+        calendarView = findViewById(R.id.calendarView);
 
         final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String selectedDate = sdf.format(new Date(calendarView.getDate()));
@@ -39,7 +47,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showChallenges(View v) {
+        DatabaseHandler db = new DatabaseHandler(this);
+
         Intent i = new Intent(this, ChallengeViewActivity.class);
+        Bundle b = new Bundle();
+
+        List<Challenge> challenges = db.getChallenges();
+
+        b.putParcelableArrayList("challenges", (ArrayList<? extends Parcelable>) challenges);
+        i.putExtras(b);
+
+        startActivity(i);
+    }
+
+    public void makeChallenge(View v) {
+        Intent i = new Intent(this, AddChallengeActivity.class);
+        Bundle b = new Bundle();
+
+        b.putString("date", String.valueOf(textView.getText()));
+        i.putExtras(b);
+
         startActivity(i);
     }
 }
