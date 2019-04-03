@@ -74,4 +74,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return challenges;
     }
+
+    public void deleteChallenge(int index, int size) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE id = " + index);
+
+        int newID = index-1;
+        for (int i=index; i<=size; i++) {
+            db.execSQL("UPDATE " + TABLE_NAME + " SET id = " + newID + " WHERE id = " + i);
+            newID++;
+        }
+    }
 }
