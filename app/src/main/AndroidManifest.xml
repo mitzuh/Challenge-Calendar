@@ -21,6 +21,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <activity android:name=".AddChallengeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
+        <activity android:name=".EditChallengeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
     </application>
 
 </manifest>
