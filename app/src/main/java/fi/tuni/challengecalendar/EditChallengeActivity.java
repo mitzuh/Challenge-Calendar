@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,10 @@ public class EditChallengeActivity extends AppCompatActivity {
         b.putParcelableArrayList("challenges", (ArrayList<? extends Parcelable>) challenges);
         intent.putExtras(b);
 
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Challenge deleted", Toast.LENGTH_SHORT);
+        toast.show();
+
         startActivity(intent);
     }
 
@@ -63,6 +68,10 @@ public class EditChallengeActivity extends AppCompatActivity {
 
         b.putParcelableArrayList("challenges", (ArrayList<? extends Parcelable>) challenges);
         intent.putExtras(b);
+
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Challenge marked as complete", Toast.LENGTH_SHORT);
+        toast.show();
 
         startActivity(intent);
     }
