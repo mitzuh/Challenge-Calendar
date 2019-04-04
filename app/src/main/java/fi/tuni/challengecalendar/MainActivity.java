@@ -47,16 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showChallenges(View v) {
-        DatabaseHandler db = new DatabaseHandler(this);
-
         Intent i = new Intent(this, ChallengeViewActivity.class);
-        Bundle b = new Bundle();
-
-        List<Challenge> challenges = db.getChallenges();
-
-        b.putParcelableArrayList("challenges", (ArrayList<? extends Parcelable>) challenges);
-        i.putExtras(b);
-
         startActivity(i);
     }
 
@@ -67,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         b.putString("date", String.valueOf(textView.getText()));
         i.putExtras(b);
 
+        startActivity(i);
+    }
+
+    public void showCompleted(View v) {
+        Intent i = new Intent(this, CompletedViewActivity.class);
         startActivity(i);
     }
 }

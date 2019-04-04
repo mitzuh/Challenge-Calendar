@@ -17,8 +17,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Database name
     private static final String DATABASE_NAME = "cc.db";
 
-    // Table name
-    private static final String TABLE_NAME = "challenges";
+    // Table names
+    private static final String CHALLENGES = "challenges";
+    private static final String COMPLETED = "completed";
 
     // Table fields
     private static final String KEY_ID = "id";
@@ -34,15 +35,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
+        // Challenges
+        db.execSQL("CREATE TABLE " + CHALLENGES + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
+                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
+
+        // Completed Challenges
+        db.execSQL("CREATE TABLE " + COMPLETED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
                 KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CHALLENGES);
+        db.execSQL("DROP TABLE IF EXISTS " + COMPLETED);
         onCreate(db);
     }
+
+    // CHALLENGES
 
     public void addChallenge(Challenge c) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -52,14 +61,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_NAME, c.getName());
         values.put(KEY_DATE, c.getDate().toString());
 
-        db.insert(TABLE_NAME, null, values);
+        db.insert(CHALLENGES, null, values);
         db.close();
     }
 
     public List<Challenge> getChallenges() {
         List<Challenge> challenges = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM " + TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + CHALLENGES;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -77,12 +86,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void deleteChallenge(int index, int size) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE id = " + index);
+        db.execSQL("DELETE FROM " + CHALLENGES + " WHERE id = " + index);
 
         int newID = index-1;
         for (int i=index; i<=size; i++) {
-            db.execSQL("UPDATE " + TABLE_NAME + " SET id = " + newID + " WHERE id = " + i);
+            db.execSQL("UPDATE " + CHALLENGES + " SET id = " + newID + " WHERE id = " + i);
             newID++;
         }
+    }
+
+    // COMPLETED CHALLENGES
+
+    public void addCompleted(Challenge c) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, getCompleted().size()+1);
+        values.put(KEY_NAME, c.getName());
+        values.put(KEY_DATE, c.getDate().toString());
+
+        db.insert(COMPLETED, null, values);
+        db.close();
+    }
+
+    public List<Challenge> getCompleted() {
+        List<Challenge> challenges = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + COMPLETED;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Challenge challenge = new Challenge(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1), cursor.getString(2));
+                challenges.add(challenge);
+            }
+            while (cursor.moveToNext());
+        }
+        return challenges;
     }
 }

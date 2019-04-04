@@ -49,4 +49,21 @@ public class EditChallengeActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void markAsComplete(View v) {
+        List<Challenge> tempChallenges = databaseHandler.getChallenges();
+        int index = c.getId();
+        databaseHandler.addCompleted(c);
+        databaseHandler.deleteChallenge(index, tempChallenges.size());
+
+        Intent intent = new Intent(this, ChallengeViewActivity.class);
+        Bundle b = new Bundle();
+
+        List<Challenge> challenges = databaseHandler.getChallenges();
+
+        b.putParcelableArrayList("challenges", (ArrayList<? extends Parcelable>) challenges);
+        intent.putExtras(b);
+
+        startActivity(intent);
+    }
 }

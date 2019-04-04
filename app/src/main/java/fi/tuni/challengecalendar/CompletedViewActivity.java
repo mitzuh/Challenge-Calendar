@@ -11,14 +11,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChallengeViewActivity extends AppCompatActivity {
+public class CompletedViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_challenge_view);
+        setContentView(R.layout.activity_completed_view);
 
         DatabaseHandler db = new DatabaseHandler(this);
-        List<Challenge> list = db.getChallenges();
+        List<Challenge> list = db.getCompleted();
 
         final Challenge [] challenges = new Challenge[list.size()];
 
@@ -27,21 +27,15 @@ public class ChallengeViewActivity extends AppCompatActivity {
         }
 
         ArrayAdapter<Challenge> adapter = new ArrayAdapter<Challenge>(this,
-                                            android.R.layout.simple_list_item_1, challenges);
+                android.R.layout.simple_list_item_1, challenges);
 
-        ListView listView = findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.completedView);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), EditChallengeActivity.class);
-                Bundle b = new Bundle();
-
-                b.putParcelable("challenge", challenges[position]);
-                i.putExtras(b);
-
-                startActivity(i);
+                Log.d("test", String.valueOf(challenges[position].id));
             }
         });
     }
@@ -52,3 +46,4 @@ public class ChallengeViewActivity extends AppCompatActivity {
         startActivity(i);
     }
 }
+
