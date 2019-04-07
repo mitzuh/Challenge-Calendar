@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -106,10 +108,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addCompleted(Challenge c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String newDate = sdf.format(new Date());
+
         ContentValues values = new ContentValues();
         values.put(KEY_ID, getCompleted().size()+1);
         values.put(KEY_NAME, c.getName());
-        values.put(KEY_DATE, c.getDate().toString());
+        values.put(KEY_DATE, newDate.toString());
 
         db.insert(COMPLETED, null, values);
         db.close();

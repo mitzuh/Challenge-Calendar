@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class FailedViewActivity extends AppCompatActivity {
@@ -19,24 +21,16 @@ public class FailedViewActivity extends AppCompatActivity {
         DatabaseHandler db = new DatabaseHandler(this);
         List<Challenge> list = db.getFailed();
 
-        final Challenge [] challenges = new Challenge[list.size()];
+        ListView listView = (ListView) findViewById(R.id.failedView);
 
-        for (int i=0; i< list.size(); i++) {
-            challenges[i] = new Challenge(list.get(i).id, list.get(i).name, list.get(i).date);
+        ArrayList<Challenge> challenges = new ArrayList<>();
+        for (int i=0; i<list.size(); i++) {
+            challenges.add(list.get(i));
         }
 
-        ArrayAdapter<Challenge> adapter = new ArrayAdapter<Challenge>(this,
-                android.R.layout.simple_list_item_1, challenges);
-
-        ListView listView = findViewById(R.id.failedView);
+        ChallengeListAdapter adapter =
+                new ChallengeListAdapter(this, R.layout.adapter_view_layout, challenges);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("test", String.valueOf(challenges[position].id));
-            }
-        });
     }
 
     @Override

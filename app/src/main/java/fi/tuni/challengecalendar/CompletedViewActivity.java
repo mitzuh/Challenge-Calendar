@@ -3,11 +3,9 @@ package fi.tuni.challengecalendar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompletedViewActivity extends AppCompatActivity {
@@ -19,24 +17,16 @@ public class CompletedViewActivity extends AppCompatActivity {
         DatabaseHandler db = new DatabaseHandler(this);
         List<Challenge> list = db.getCompleted();
 
-        final Challenge [] challenges = new Challenge[list.size()];
+        ListView listView = (ListView) findViewById(R.id.completedView);
 
-        for (int i=0; i< list.size(); i++) {
-            challenges[i] = new Challenge(list.get(i).id, list.get(i).name, list.get(i).date);
+        ArrayList<Challenge> challenges = new ArrayList<>();
+        for (int i=0; i<list.size(); i++) {
+            challenges.add(list.get(i));
         }
 
-        ArrayAdapter<Challenge> adapter = new ArrayAdapter<Challenge>(this,
-                android.R.layout.simple_list_item_1, challenges);
-
-        ListView listView = findViewById(R.id.completedView);
+        ChallengeListAdapter adapter =
+                new ChallengeListAdapter(this, R.layout.adapter_view_layout, challenges);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("test", String.valueOf(challenges[position].id));
-            }
-        });
     }
 
     @Override
