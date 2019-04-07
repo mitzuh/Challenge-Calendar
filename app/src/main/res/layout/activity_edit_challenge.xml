@@ -6,19 +6,23 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete Challenge"
-        android:onClick="deleteChallenge"/>
+        android:textSize="100px"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/markCompletedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mark as Complete"
-        android:onClick="markAsComplete"/>
+        android:onClick="markAsComplete"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Challenge"
+        android:onClick="deleteChallenge"
+        android:layout_gravity="center"/>
 </LinearLayout>
