@@ -1,7 +1,6 @@
 package fi.tuni.challengecalendar;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,13 +9,16 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler databaseHandler;
+
+    TextView textView;
+    CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHandler = new DatabaseHandler(this);
 
-        // Temporal. Will be removed after challenges can be added manually.
-        databaseHandler.addChallenge(new Challenge(1, "Test", "11.11.2019"));
-        databaseHandler.addChallenge(new Challenge(2, "Test2", "30.03.2019"));
-
-        final TextView textView = findViewById(R.id.dateText);
-        final CalendarView calendarView = findViewById(R.id.calendarView);
+        textView = findViewById(R.id.dateText);
+        calendarView = findViewById(R.id.calendarView);
 
         final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String selectedDate = sdf.format(new Date(calendarView.getDate()));
@@ -46,21 +44,63 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showChallenges(View v) {
-        DatabaseHandler db = new DatabaseHandler(this);
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            checkOutdated();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void showChallenges(View v) {
         Intent i = new Intent(this, ChallengeViewActivity.class);
+        startActivity(i);
+    }
+
+    public void makeChallenge(View v) {
+        Intent i = new Intent(this, AddChallengeActivity.class);
         Bundle b = new Bundle();
 
-        List<Challenge> challenges = db.getChallenges();
-
-        b.putParcelableArrayList("challenges", (ArrayList<? extends Parcelable>) challenges);
+        b.putString("date", String.valueOf(textView.getText()));
         i.putExtras(b);
 
         startActivity(i);
     }
 
-    public void addChallenge(View v) {
+    public void showCompleted(View v) {
+        Intent i = new Intent(this, CompletedViewActivity.class);
+        startActivity(i);
+    }
 
+    public void showFailed(View v) {
+        Intent i = new Intent(this, FailedViewActivity.class);
+        startActivity(i);
+    }
+
+    public void checkOutdated() throws Exception {
+        List<Challenge> challenges = databaseHandler.getChallenges();
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+        for (int i=0; i<challenges.size(); i++) {
+            Challenge c = challenges.get(i);
+            Date date = sdf.parse(c.getDate());
+
+            long diff = date.getTime()-new Date().getTime();
+            long converted = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+            if (converted < 0) {
+                markAsFailed(c);
+            }
+        }
+    }
+
+    public void markAsFailed(Challenge c) {
+        List<Challenge> tempChallenges = databaseHandler.getChallenges();
+        int index = c.getId();
+        databaseHandler.addFailed(c);
+        databaseHandler.deleteChallenge(index, tempChallenges.size());
     }
 }

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Add Challenge"
-            android:onClick="addChallenge"/>
+            android:onClick="makeChallenge"/>
         <Button
             android:id="@+id/viewButton"
             android:layout_width="wrap_content"
@@ -39,6 +39,27 @@
             android:layout_gravity="center"
             android:text="View Challenges"
             android:onClick="showChallenges"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <Button
+            android:id="@+id/viewCompletedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="View Completed"
+            android:onClick="showCompleted"/>
+        <Button
+            android:id="@+id/viewFailedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="View Failed"
+            android:onClick="showFailed"/>
     </LinearLayout>
 
 </LinearLayout>
