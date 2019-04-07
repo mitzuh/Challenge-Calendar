@@ -20,6 +20,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Table names
     private static final String CHALLENGES = "challenges";
     private static final String COMPLETED = "completed";
+    private static final String FAILED = "failed";
 
     // Table fields
     private static final String KEY_ID = "id";
@@ -42,12 +43,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Completed Challenges
         db.execSQL("CREATE TABLE " + COMPLETED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
                 KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
+
+        // Failed Challenges
+        db.execSQL("CREATE TABLE " + FAILED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
+                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CHALLENGES);
         db.execSQL("DROP TABLE IF EXISTS " + COMPLETED);
+        db.execSQL("DROP TABLE IF EXISTS " + FAILED);
         onCreate(db);
     }
 
@@ -113,6 +119,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Challenge> challenges = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + COMPLETED;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Challenge challenge = new Challenge(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1), cursor.getString(2));
+                challenges.add(challenge);
+            }
+            while (cursor.moveToNext());
+        }
+        return challenges;
+    }
+
+    // FAILED CHALLENGES
+
+    public void addFailed(Challenge c) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, getFailed().size()+1);
+        values.put(KEY_NAME, c.getName());
+        values.put(KEY_DATE, c.getDate().toString());
+
+        db.insert(FAILED, null, values);
+        db.close();
+    }
+
+    public List<Challenge> getFailed() {
+        List<Challenge> challenges = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + FAILED;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

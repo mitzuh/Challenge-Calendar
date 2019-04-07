@@ -10,14 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.List;
 
-public class CompletedViewActivity extends AppCompatActivity {
+public class FailedViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_completed_view);
+        setContentView(R.layout.activity_failed_view);
 
         DatabaseHandler db = new DatabaseHandler(this);
-        List<Challenge> list = db.getCompleted();
+        List<Challenge> list = db.getFailed();
 
         final Challenge [] challenges = new Challenge[list.size()];
 
@@ -28,7 +28,7 @@ public class CompletedViewActivity extends AppCompatActivity {
         ArrayAdapter<Challenge> adapter = new ArrayAdapter<Challenge>(this,
                 android.R.layout.simple_list_item_1, challenges);
 
-        ListView listView = findViewById(R.id.completedView);
+        ListView listView = findViewById(R.id.failedView);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,4 +45,5 @@ public class CompletedViewActivity extends AppCompatActivity {
         startActivity(i);
     }
 }
+
 

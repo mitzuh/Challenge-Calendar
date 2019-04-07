@@ -11,9 +11,15 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.DAYS;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            checkOutdated();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showChallenges(View v) {
         Intent i = new Intent(this, ChallengeViewActivity.class);
         startActivity(i);
@@ -64,5 +80,35 @@ public class MainActivity extends AppCompatActivity {
     public void showCompleted(View v) {
         Intent i = new Intent(this, CompletedViewActivity.class);
         startActivity(i);
+    }
+
+    public void showFailed(View v) {
+        Intent i = new Intent(this, FailedViewActivity.class);
+        startActivity(i);
+    }
+
+    public void checkOutdated() throws Exception {
+        List<Challenge> challenges = databaseHandler.getChallenges();
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+        for (int i=0; i<challenges.size(); i++) {
+            Challenge c = challenges.get(i);
+            Date date = sdf.parse(c.getDate());
+
+            long diff = date.getTime()-new Date().getTime();
+            long converted = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+            if (converted < 0) {
+                markAsFailed(c);
+            }
+        }
+    }
+
+    public void markAsFailed(Challenge c) {
+        List<Challenge> tempChallenges = databaseHandler.getChallenges();
+        int index = c.getId();
+        databaseHandler.addFailed(c);
+        databaseHandler.deleteChallenge(index, tempChallenges.size());
     }
 }
