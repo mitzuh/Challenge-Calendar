@@ -3,7 +3,10 @@ package fi.tuni.challengecalendar;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Challenge implements Parcelable {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+public class Challenge implements Parcelable, Comparable<Challenge> {
     int id;
     String name;
     String date;
@@ -74,5 +77,10 @@ public class Challenge implements Parcelable {
         dest.writeStringArray(new String[] {String.valueOf(this.id),
                 this.name,
                 this.date});
+    }
+
+    @Override
+    public int compareTo(Challenge o) {
+        return this.date.compareTo(o.date);
     }
 }
