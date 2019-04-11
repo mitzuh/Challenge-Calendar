@@ -3,9 +3,6 @@ package fi.tuni.challengecalendar;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 public class Challenge implements Parcelable, Comparable<Challenge> {
     int id;
     String name;

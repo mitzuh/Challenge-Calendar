@@ -7,15 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ChallengeViewActivity extends AppCompatActivity {
     @Override
@@ -28,19 +22,12 @@ public class ChallengeViewActivity extends AppCompatActivity {
         DatabaseHandler db = new DatabaseHandler(this);
         List<Challenge> list = db.getChallenges();
 
-        /*ArrayList<Challenge> challenges = new ArrayList<>();
-        for (int i=0; i<list.size(); i++) {
-            challenges.add(list.get(i));
-        }*/
-
-        ////////////////////////////////////
         Collections.sort(list);
 
         ArrayList<Challenge> challenges = new ArrayList<>();
         for (int i=0; i<list.size(); i++) {
             challenges.add(list.get(i));
         }
-        //////////////////////////////////////////////////////
 
         ChallengeListAdapter adapter =
                 new ChallengeListAdapter(this, R.layout.adapter_view_layout, challenges);
