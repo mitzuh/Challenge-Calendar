@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class for handling the data in the local database.
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database version
@@ -31,11 +34,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     SQLiteDatabase database;
 
+    /**
+     * Constructor for the DatabaseHandler.
+     *
+     * @param context Application context.
+     */
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         database = getWritableDatabase();
     }
 
+    /**
+     * Initialization of the database.
+     *
+     * <p>
+     *     Makes all the database tables with SQL commands.
+     * </p>
+     *
+     * @param db Database to be created locally.
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Challenges
@@ -51,6 +68,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
     }
 
+    /**
+     * Removes existing tables and creates new ones.
+     *
+     * @param db Database, which holds all the data of the tables.
+     * @param oldVersion Version number for previous version.
+     * @param newVersion Version number for the new version.
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CHALLENGES);
@@ -61,6 +85,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // CHALLENGES
 
+    /**
+     * Adds a new Challenge to CHALLENGES table.
+     *
+     * @param c Challenge to be added to the table.
+     */
     public void addChallenge(Challenge c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -73,6 +102,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Gets all the Challenges from CHALLENGES table in the database and converts them
+     * into a List.
+     *
+     * @return List with all the upcoming Challenges.
+     */
     public List<Challenge> getChallenges() {
         List<Challenge> challenges = new ArrayList<>();
 
@@ -92,6 +127,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return challenges;
     }
 
+    /**
+     *
+     * Deletes a single Challenge from the CHALLENGES table.
+     *
+     * @param index Id of the Challenge to be deleted.
+     * @param size Number of upcoming Challenges.
+     */
     public void deleteChallenge(int index, int size) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + CHALLENGES + " WHERE id = " + index);
@@ -105,6 +147,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // COMPLETED CHALLENGES
 
+    /**
+     * Adds Challenge to COMPLETED table.
+     *
+     * @param c Challenge to be added to COMPLETED table.
+     */
     public void addCompleted(Challenge c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -120,6 +167,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Gets all the Challenges from COMPLETED table in the database and converts them
+     * into a List.
+     *
+     * @return List with all the completed Challenges.
+     */
     public List<Challenge> getCompleted() {
         List<Challenge> challenges = new ArrayList<>();
 
@@ -141,6 +194,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // FAILED CHALLENGES
 
+    /**
+     * Adds Challenge to FAILED table.
+     *
+     * @param c Challenge to be added to FAILED table.
+     */
     public void addFailed(Challenge c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -153,6 +211,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Gets all the Challenges from FAILED table in the database and converts them
+     * into a List.
+     *
+     * @return List with all the failed Challenges.
+     */
     public List<Challenge> getFailed() {
         List<Challenge> challenges = new ArrayList<>();
 

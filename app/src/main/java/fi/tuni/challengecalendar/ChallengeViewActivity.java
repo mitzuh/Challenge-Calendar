@@ -11,7 +11,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Activity class for viewing the upcoming Challenges.
+ *
+ * <p>
+ *     Challenge descriptions with their deadlines is displayed in a list.
+ * </p>
+ */
 public class ChallengeViewActivity extends AppCompatActivity {
+
+    /**
+     * Initialization of the Activity.
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +47,14 @@ public class ChallengeViewActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * Moves to EditChallenge activity with the clicked object data.
+             *
+             * @param parent AdapterView.
+             * @param view Clicked item.
+             * @param position Position of the item in the list.
+             * @param id Id of the clicked item.
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), EditChallengeActivity.class);
@@ -47,6 +68,9 @@ public class ChallengeViewActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Returns back to Main activity, when the Android back-button is pressed.
+     */
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);

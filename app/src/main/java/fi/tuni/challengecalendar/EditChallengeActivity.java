@@ -11,6 +11,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity class for Challenge completion and deletion.
+ */
 public class EditChallengeActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
 
@@ -18,6 +21,11 @@ public class EditChallengeActivity extends AppCompatActivity {
 
     Challenge c;
 
+    /**
+     * Initialization of the Activity.
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,11 @@ public class EditChallengeActivity extends AppCompatActivity {
         textView.setText(c.name);
     }
 
+    /**
+     * Deletes a Challenge from the database.
+     *
+     * @param v Clicked Button, that is used to delete Challenge from the database.
+     */
     public void deleteChallenge(View v) {
         List<Challenge> tempChallenges = databaseHandler.getChallenges();
         int index = c.getId();
@@ -54,6 +67,12 @@ public class EditChallengeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Marks the Challenge as completed and moves it from Upcoming Challenges
+     * into Completed Challenges in the database.
+     *
+     * @param v Clicked Button, that marks the Challenge as completed.
+     */
     public void markAsComplete(View v) {
         List<Challenge> tempChallenges = databaseHandler.getChallenges();
         int index = c.getId();

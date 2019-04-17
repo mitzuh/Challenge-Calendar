@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Main class for the application
+ */
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler databaseHandler;
@@ -20,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     CalendarView calendarView;
 
+    /**
+     * Initialization of the Activity.
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if there are outdated challenges after the user returns
+     * to the main view.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -54,11 +67,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the ChallengeView activity.
+     *
+     * @param v Clicked Button, which starts the new activity.
+     */
     public void showChallenges(View v) {
         Intent i = new Intent(this, ChallengeViewActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Moves to AddChallenge activity.
+     *
+     * @param v Clicked Button, which starts the new activity.
+     */
     public void makeChallenge(View v) {
         Intent i = new Intent(this, AddChallengeActivity.class);
         Bundle b = new Bundle();
@@ -69,17 +92,34 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     * Moves to CompletedView activity.
+     *
+     * @param v Clicked Button, which starts the new activity.
+     */
     public void showCompleted(View v) {
         Intent i = new Intent(this, CompletedViewActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Moves to FailedView activity.
+     *
+     * @param v Clicked Button, which starts the new activity.
+     */
     public void showFailed(View v) {
         Intent i = new Intent(this, FailedViewActivity.class);
         startActivity(i);
     }
 
-    public void checkOutdated() throws Exception {
+    /**
+     * Compares today Date and challenge deadline Date, and if the deadline
+     * has passed, the Challenge is moved from upcoming challenges to failed challenges.
+     *
+     * @throws ParseException Exception for possible SimpleDateFormat parsing error.
+     * Exception is thrown, if the date if in incorrect form.
+     */
+    public void checkOutdated() throws ParseException {
         List<Challenge> challenges = databaseHandler.getChallenges();
 
         final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -97,6 +137,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Moves the Challenge from upcoming challenges to failed challenges.
+     *
+     * @param c Challenge, which user has failed to complete in time.
+     */
     public void markAsFailed(Challenge c) {
         List<Challenge> tempChallenges = databaseHandler.getChallenges();
         int index = c.getId();

@@ -8,7 +8,19 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity class for viewing all of the failed Challenges.
+ *
+ * <p>
+ *     Challenge names with their meant to be deadlines are displayed in a list.
+ * </p>
+ */
 public class FailedViewActivity extends AppCompatActivity {
+    /**
+     * Initialization of the Activity.
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +41,9 @@ public class FailedViewActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Returns back to Main activity, when the Android back-button is pressed.
+     */
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);

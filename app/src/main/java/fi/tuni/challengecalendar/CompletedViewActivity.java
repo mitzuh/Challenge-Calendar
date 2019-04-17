@@ -8,7 +8,20 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity for viewing all of the completed Challenges.
+ *
+ * <p>
+ *     Challenge names with their completion dates are displayed in a list.
+ * </p>
+ */
 public class CompletedViewActivity extends AppCompatActivity {
+
+    /**
+     * Initialization of the Activity.
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +42,9 @@ public class CompletedViewActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Returns back to Main activity, when the Android back-button is pressed.
+     */
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);

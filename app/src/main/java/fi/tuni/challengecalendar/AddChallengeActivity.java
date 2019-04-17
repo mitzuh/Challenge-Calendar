@@ -7,12 +7,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * Activity class for adding Challenges to the user.
+ */
 public class AddChallengeActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
     EditText editText;
 
     String date;
 
+    /**
+     * Initialization of the Activity.
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +33,17 @@ public class AddChallengeActivity extends AppCompatActivity {
         date = intent.getExtras().getString("date");
     }
 
+    /**
+     * Adds new Challenge to the database, when Add Challenge -Button is clicked.
+     *
+     * <p>
+     *     Checks first if the description EditText field is empty. If it is, user
+     *     is notified to fill info in there. If it has some text there, the Challenge
+     *     is added to the database.
+     * </p>
+     *
+     * @param v Clicked Button, which adds the Challenge to database.
+     */
     public void addChallenge(View v) {
         if (!editText.getText().toString().trim().isEmpty()) {
             databaseHandler.addChallenge(new Challenge(databaseHandler.getChallenges().size()+1,
