@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
 
     TextView textView;
+    TextView pointsView;
     CalendarView calendarView;
 
     /**
@@ -37,11 +38,14 @@ public class MainActivity extends AppCompatActivity {
         databaseHandler = new DatabaseHandler(this);
 
         textView = findViewById(R.id.dateText);
+        pointsView = findViewById(R.id.pointsView);
         calendarView = findViewById(R.id.calendarView);
 
         final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String selectedDate = sdf.format(new Date(calendarView.getDate()));
         textView.setText(selectedDate);
+
+        pointsView.setText("Your total points: " + databaseHandler.getTotalPoints());
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
