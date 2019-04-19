@@ -31,6 +31,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_DATE = "date";
+    private static final String KEY_POINTS = "points";
 
     SQLiteDatabase database;
 
@@ -57,15 +58,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Challenges
         db.execSQL("CREATE TABLE " + CHALLENGES + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
-                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
+                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255), " + KEY_POINTS +
+                " VARCHAR(255))");
 
         // Completed Challenges
         db.execSQL("CREATE TABLE " + COMPLETED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
-                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
+                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255), " + KEY_POINTS +
+                " VARCHAR(255))");
 
         // Failed Challenges
         db.execSQL("CREATE TABLE " + FAILED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
-                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255))");
+                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255), " + KEY_POINTS +
+                " VARCHAR(255))");
     }
 
     /**
@@ -97,6 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_ID, c.getId());
         values.put(KEY_NAME, c.getName());
         values.put(KEY_DATE, c.getDate().toString());
+        values.put(KEY_POINTS, c.getPoints());
 
         db.insert(CHALLENGES, null, values);
         db.close();
@@ -119,7 +124,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Challenge challenge = new Challenge(Integer.parseInt(cursor.getString(0)),
-                        cursor.getString(1), cursor.getString(2));
+                        cursor.getString(1), cursor.getString(2),
+                        cursor.getInt(3));
                 challenges.add(challenge);
             }
             while (cursor.moveToNext());
@@ -162,6 +168,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_ID, getCompleted().size()+1);
         values.put(KEY_NAME, c.getName());
         values.put(KEY_DATE, newDate.toString());
+        values.put(KEY_POINTS, c.getPoints());
 
         db.insert(COMPLETED, null, values);
         db.close();
@@ -184,7 +191,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Challenge challenge = new Challenge(Integer.parseInt(cursor.getString(0)),
-                        cursor.getString(1), cursor.getString(2));
+                        cursor.getString(1), cursor.getString(2),
+                        cursor.getInt(3));
                 challenges.add(challenge);
             }
             while (cursor.moveToNext());
@@ -206,6 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_ID, getFailed().size()+1);
         values.put(KEY_NAME, c.getName());
         values.put(KEY_DATE, c.getDate().toString());
+        values.put(KEY_POINTS, c.getPoints());
 
         db.insert(FAILED, null, values);
         db.close();
@@ -228,7 +237,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Challenge challenge = new Challenge(Integer.parseInt(cursor.getString(0)),
-                        cursor.getString(1), cursor.getString(2));
+                        cursor.getString(1), cursor.getString(2),
+                        cursor.getInt(3));
                 challenges.add(challenge);
             }
             while (cursor.moveToNext());

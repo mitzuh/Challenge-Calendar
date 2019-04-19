@@ -10,6 +10,7 @@ public class Challenge implements Parcelable, Comparable<Challenge> {
     int id;
     String name;
     String date;
+    int points;
 
     /**
      * Constructor for Challenge.
@@ -17,11 +18,14 @@ public class Challenge implements Parcelable, Comparable<Challenge> {
      * @param id Unique id, which can be used to get the Challenge.
      * @param name Description for the Challenge.
      * @param date Deadline the user must complete the Challenge before.
+     * @param points Amount of completion points the user gets for completing
+     * the Challenge.
      */
-    public Challenge(int id, String name, String date) {
+    public Challenge(int id, String name, String date, int points) {
         this.id = id;
         this.name = name;
         this.date = date;
+        this.points = points;
     }
 
     /**
@@ -107,6 +111,24 @@ public class Challenge implements Parcelable, Comparable<Challenge> {
      */
     public void setDate(String date) {
         this.date = date;
+    }
+
+    /**
+     * Gets the amount of completion points for this Challenge.
+     *
+     * @return Amount of completion points for this Challenge.
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    /**
+     * Sets the amount of completion points for this Challenge.
+     *
+     * @param points Amount of completion points
+     */
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     /**

@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class AddChallengeActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
     EditText editText;
+    EditText editText2;
 
     String date;
 
@@ -28,6 +29,7 @@ public class AddChallengeActivity extends AppCompatActivity {
 
         databaseHandler = new DatabaseHandler(this);
         editText = (EditText) findViewById(R.id.editText);
+        editText2 = (EditText) findViewById(R.id.editText2);
 
         Intent intent = getIntent();
         date = intent.getExtras().getString("date");
@@ -46,15 +48,26 @@ public class AddChallengeActivity extends AppCompatActivity {
      */
     public void addChallenge(View v) {
         if (!editText.getText().toString().trim().isEmpty()) {
-            databaseHandler.addChallenge(new Challenge(databaseHandler.getChallenges().size()+1,
-                    editText.getText().toString(),
-                    date));
+            if (!editText2.getText().toString().trim().isEmpty() &&
+                    Integer.parseInt(editText2.getText().toString()) > 0 &&
+                    Integer.parseInt(editText2.getText().toString()) <= 5) {
 
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Challenge added", Toast.LENGTH_SHORT);
-            toast.show();
+                databaseHandler.addChallenge(new Challenge(databaseHandler.getChallenges().size()+1,
+                        editText.getText().toString(),
+                        date, Integer.parseInt(editText2.getText().toString())));
 
-            editText.setText(null);
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Challenge added", Toast.LENGTH_SHORT);
+                toast.show();
+
+                editText.setText(null);
+                editText2.setText(null);
+            }
+            else {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Completion points must be between 1 and 5!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
         else {
             Toast toast = Toast.makeText(getApplicationContext(),

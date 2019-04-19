@@ -8,6 +8,13 @@
         android:hint="Challenge Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/editText2"
+        android:hint="Completion points (1-5)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
+
     <Button
         android:text="Add Challenge"
         android:layout_width="wrap_content"

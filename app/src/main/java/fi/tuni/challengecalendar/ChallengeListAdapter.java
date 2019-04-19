@@ -45,8 +45,9 @@ public class ChallengeListAdapter extends ArrayAdapter<Challenge> {
         int id = getItem(position).getId();
         String name = getItem(position).getName();
         String date = getItem(position).getDate();
+        int points = getItem(position).getPoints();
 
-        Challenge challenge = new Challenge(id, name, date);
+        Challenge challenge = new Challenge(id, name, date, points);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
