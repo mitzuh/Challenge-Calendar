@@ -35,13 +35,14 @@ public class Challenge implements Parcelable, Comparable<Challenge> {
      * @param in Container for data object reference.
      */
     public Challenge(Parcel in) {
-        String[] data = new String[3];
+        String[] data = new String[4];
 
         in.readStringArray(data);
 
         this.id = Integer.parseInt(data[0]);
         this.name = data[1];
         this.date = data[2];
+        this.points = Integer.parseInt(data[3]);
     }
 
     /**
@@ -119,7 +120,7 @@ public class Challenge implements Parcelable, Comparable<Challenge> {
      * @return Amount of completion points for this Challenge.
      */
     public int getPoints() {
-        return points;
+        return this.points;
     }
 
     /**
@@ -162,7 +163,8 @@ public class Challenge implements Parcelable, Comparable<Challenge> {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {String.valueOf(this.id),
                 this.name,
-                this.date});
+                this.date,
+                String.valueOf(this.points)});
     }
 
     /**

@@ -18,6 +18,7 @@ public class EditChallengeActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
 
     TextView textView;
+    TextView textView2;
 
     Challenge c;
 
@@ -36,10 +37,12 @@ public class EditChallengeActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         textView = (TextView) findViewById(R.id.textView);
+        textView2 = (TextView) findViewById(R.id.textView2);
 
         c = extras.getParcelable("challenge");
 
-        textView.setText(c.name);
+        textView.setText(c.getName());
+        textView2.setText("Completion points: " + String.valueOf(c.getPoints()));
     }
 
     /**
