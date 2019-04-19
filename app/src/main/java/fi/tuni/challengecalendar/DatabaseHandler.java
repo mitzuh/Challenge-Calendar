@@ -27,11 +27,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COMPLETED = "completed";
     private static final String FAILED = "failed";
 
+    private static final String POINTS = "points";
+
     // Table fields
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_DATE = "date";
     private static final String KEY_POINTS = "points";
+
+    private static final String KEY_AMOUNT = "amount";
 
     SQLiteDatabase database;
 
@@ -70,6 +74,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + FAILED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
                 KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255), " + KEY_POINTS +
                 " VARCHAR(255))");
+
+        // Points
+        db.execSQL("CREATE TABLE " + POINTS + " ( " + KEY_AMOUNT + " INTEGER)");
     }
 
     /**
@@ -84,6 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CHALLENGES);
         db.execSQL("DROP TABLE IF EXISTS " + COMPLETED);
         db.execSQL("DROP TABLE IF EXISTS " + FAILED);
+        db.execSQL("DROP TABLE IF EXISTS " + POINTS);
         onCreate(db);
     }
 
@@ -244,5 +252,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             while (cursor.moveToNext());
         }
         return challenges;
+    }
+
+    // POINTS
+
+    /**
+     * Adds completion points from completed Challenge to the database.
+     *
+     * @param completionPoints Points from completed Challenge.
+     */
+    public void addPoints(int completionPoints) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_AMOUNT, getTotalPoints() + completionPoints);
+
+        db.insert(POINTS, null, values);
+        db.close();
+    }
+
+    /**
+     * Gets current completion points from the database.
+     *
+     * @return Current total completion points.
+     */
+    public int getTotalPoints() {
+        String selectQuery = "SELECT * FROM " + POINTS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        int totalPoints = 0;
+
+        if (cursor.moveToFirst()) {
+            do {
+                totalPoints = cursor.getInt(0);
+            }
+            while (cursor.moveToNext());
+        }
+
+        return totalPoints;
     }
 }

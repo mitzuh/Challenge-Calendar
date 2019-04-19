@@ -71,8 +71,13 @@ public class EditChallengeActivity extends AppCompatActivity {
     }
 
     /**
-     * Marks the Challenge as completed and moves it from Upcoming Challenges
-     * into Completed Challenges in the database.
+     * Marks the Challenge as completed.
+     *
+     * <p>
+     *      Deletes the Challenge from upcoming challenges and moves it
+     *      into Completed Challenges in the database. Also adds points
+     *      to the user based on the amount of completion points of the completed Challenge.
+     * </p>
      *
      * @param v Clicked Button, that marks the Challenge as completed.
      */
@@ -81,6 +86,9 @@ public class EditChallengeActivity extends AppCompatActivity {
         int index = c.getId();
         databaseHandler.addCompleted(c);
         databaseHandler.deleteChallenge(index, tempChallenges.size());
+
+        // Add points to user
+        databaseHandler.addPoints(c.getPoints());
 
         Intent intent = new Intent(this, ChallengeViewActivity.class);
         Bundle b = new Bundle();
@@ -91,7 +99,7 @@ public class EditChallengeActivity extends AppCompatActivity {
         intent.putExtras(b);
 
         Toast toast = Toast.makeText(getApplicationContext(),
-                "Challenge marked as complete", Toast.LENGTH_SHORT);
+                "You got " + c.getPoints() + " points for completing this challenge!", Toast.LENGTH_LONG);
         toast.show();
 
         startActivity(intent);

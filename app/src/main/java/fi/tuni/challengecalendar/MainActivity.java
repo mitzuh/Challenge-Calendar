@@ -148,4 +148,15 @@ public class MainActivity extends AppCompatActivity {
         databaseHandler.addFailed(c);
         databaseHandler.deleteChallenge(index, tempChallenges.size());
     }
+
+    /**
+     * Returns to device home screen if the Android back-button is pressed.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }
