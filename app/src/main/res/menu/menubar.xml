@@ -3,5 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="settings"
         app:showAsAction="ifRoom"
-        android:id="@+id/settings"></item>
+        android:id="@+id/settings">
+        <menu>
+            <item android:id="@+id/clearData"
+                android:title="Clear Data"/>
+        </menu>
+    </item>
 </menu>

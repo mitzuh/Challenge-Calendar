@@ -210,6 +210,18 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
+        switch (item.getItemId()) {
+            case (R.id.settings):
+                item.getSubMenu();
+                return true;
+
+            case (R.id.clearData):
+                databaseHandler.onUpgrade(databaseHandler.getWritableDatabase(), 1, 1);
+                finish();
+                startActivity(getIntent());
+                return true;
+        }
+
         return false;
     }
 }
