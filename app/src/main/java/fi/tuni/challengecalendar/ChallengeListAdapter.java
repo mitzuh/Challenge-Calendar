@@ -12,6 +12,10 @@ import java.util.ArrayList;
 
 /**
  * Custom ArrayAdapter for Challenges.
+ *
+ * <p>
+ *     Custom ArrayAdapter is used to display data in two columns in a listview.
+ * </p>
  */
 public class ChallengeListAdapter extends ArrayAdapter<Challenge> {
     private Context mContext;

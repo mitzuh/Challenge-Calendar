@@ -12,6 +12,11 @@ import java.util.List;
 
 /**
  * Activity class for Challenge completion and deletion.
+ *
+ * <p>
+ *     Challenge selected on the previous activity is used here and user can either
+ *     delete it from the database, or mark it as complete.
+ * </p>
  */
 public class EditChallengeActivity extends ActionBarActivity {
     TextView textView;
@@ -21,6 +26,11 @@ public class EditChallengeActivity extends ActionBarActivity {
 
     /**
      * Initialization of the Activity.
+     *
+     * <p>
+     *     Makes text EditText fields for adding a description to the Challenge and
+     *     decide how many completion points its worth.
+     * </p>
      *
      * @param savedInstanceState Previous state of the application.
      */
@@ -42,6 +52,12 @@ public class EditChallengeActivity extends ActionBarActivity {
 
     /**
      * Deletes a Challenge from the database.
+     *
+     * <p>
+     *     Gets the selected Challenges id and finds it from the database, then
+     *     deletes it.
+     *     User is informed from the deletion by a toast message.
+     * </p>
      *
      * @param v Clicked Button, that is used to delete Challenge from the database.
      */
@@ -72,6 +88,8 @@ public class EditChallengeActivity extends ActionBarActivity {
      *      Deletes the Challenge from upcoming challenges and moves it
      *      into Completed Challenges in the database. Also adds points
      *      to the user based on the amount of completion points of the completed Challenge.
+     *      Toast message is shown to inform user,
+     *      how many points was gotten from the completion.
      * </p>
      *
      * @param v Clicked Button, that marks the Challenge as completed.

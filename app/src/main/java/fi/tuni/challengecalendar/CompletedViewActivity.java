@@ -19,6 +19,12 @@ public class CompletedViewActivity extends ActionBarActivity {
     /**
      * Initialization of the Activity.
      *
+     * <p>
+     *     Gets all the completed Challenges from the database and puts them
+     *     in an ArrayList. Then displays the Challenges in form
+     *     of the custom array adapter.
+     * </p>
+     *
      * @param savedInstanceState Previous state of the application.
      */
     @Override

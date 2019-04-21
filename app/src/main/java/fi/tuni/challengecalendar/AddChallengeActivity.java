@@ -8,6 +8,12 @@ import android.widget.Toast;
 
 /**
  * Activity class for adding Challenges to the user.
+ *
+ * <p>
+ *     Challenge description and its completion points are set here.
+ *     Deadline for the Challenge is set by the date, selected in the main activity
+ *     before moving to this activity.
+ * </p>
  */
 public class AddChallengeActivity extends ActionBarActivity {
     EditText editText;
@@ -36,9 +42,11 @@ public class AddChallengeActivity extends ActionBarActivity {
      * Adds new Challenge to the database, when Add Challenge -Button is clicked.
      *
      * <p>
-     *     Checks first if the description EditText field is empty. If it is, user
-     *     is notified to fill info in there. If it has some text there, the Challenge
-     *     is added to the database.
+     *     Checks first if the description EditText field is not empty, and completion points
+     *     EditText field is not empty, and is between 1-5. If values are set incorrectly, user
+     *     is notified to fill approppriate info to the fields by a toast message. If the information
+     *     is correct, the Challenge is added to the database and toast message is shown.
+     *     Challenge description character value is limited to 100.
      * </p>
      *
      * @param v Clicked Button, which adds the Challenge to database.

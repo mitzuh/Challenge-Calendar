@@ -14,7 +14,15 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Main class for the application
+ * Main Activity of the application.
+ *
+ * <p>
+ *     This activity holds the calendar, where user can choose a date for new Challenge.
+ *     When user adds a new Challenge, currently selected date is used for the deadline.
+ *     User can also move from here to all Challenge view activities, which are: Upcoming,
+ *     completed and failed.
+ *     Current completion points are also displayed on the bottom of the screen in this activity.
+ * </p>
  */
 public class MainActivity extends ActionBarActivity {
     TextView textView;
@@ -78,6 +86,12 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Moves to AddChallenge activity.
      *
+     * <p>
+     *     Moves to activity where user can add new Challenge to previously
+     *     selected date. Currently selected date on the calendar is passed to
+     *     AddChallengeActivity in a bundle.
+     * </p>
+     *
      * @param v Clicked Button, which starts the new activity.
      */
     public void makeChallenge(View v) {
@@ -115,7 +129,7 @@ public class MainActivity extends ActionBarActivity {
      * has passed, the Challenge is moved from upcoming challenges to failed challenges.
      *
      * @throws ParseException Exception for possible SimpleDateFormat parsing error.
-     * Exception is thrown, if the date if in incorrect form.
+     * Exception is thrown, if the date is in incorrect form.
      */
     public void checkOutdated() throws ParseException {
         List<Challenge> challenges = databaseHandler.getChallenges();
@@ -138,7 +152,11 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Moves the Challenge from upcoming challenges to failed challenges.
      *
-     * @param c Challenge, which user has failed to complete in time.
+     * <p>
+     *     Adds Challenge to failed table and deletes it from the upcoming challenges table.
+     * </p>
+     *
+     * @param c Challenge, which user has failed to complete before its deadline.
      */
     public void markAsFailed(Challenge c) {
         List<Challenge> tempChallenges = databaseHandler.getChallenges();
@@ -157,8 +175,4 @@ public class MainActivity extends ActionBarActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
-    // MENU
-
-
 }

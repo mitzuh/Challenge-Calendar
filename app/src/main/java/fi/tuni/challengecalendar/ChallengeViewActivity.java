@@ -22,6 +22,14 @@ public class ChallengeViewActivity extends ActionBarActivity {
     /**
      * Initialization of the Activity.
      *
+     * <p>
+     *     Gets all the upcoming Challenges from the database and puts them
+     *     in an ArrayList. Then displays the Challenges in form
+     *     of the custom array adapter.
+     *     Challenges are sorted by their deadline, so the first object in the list is
+     *     the nearest, and the last one furthest away from current date.
+     * </p>
+     *
      * @param savedInstanceState Previous state of the application.
      */
     @Override

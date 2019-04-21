@@ -14,9 +14,26 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+/**
+ * Class for all the logic behind the action bar settings menu and
+ * popupwindow for clearing the database.
+ *
+ * <p>
+ *     Class holds methods for displaying and clicking the menu items on the action bar,
+ *     as well as all the actions for clicking them.
+ *     Actionbar holds "settings" menu item, which holds a submenu item "Clear Data".
+ *     If Clear Data is clicked, a popup window is displayed and it informs the user
+ *     that this action cannot be undone. User must then choose yes or no.
+ * </p>
+ */
 public class ActionBarActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
 
+    /**
+     * Initialization of the Activity.
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +43,8 @@ public class ActionBarActivity extends AppCompatActivity {
     /**
      * Initializes the menu bar on top of the screen.
      * <p>
-     *     Loads the created menu item from the .xml and enables it.
+     *     Loads the created menu item from the .xml and enables it to
+     *     display on top of the, on the right side of the menu bar.
      * </p>
      *
      * @param menu Menu to be initialized.
@@ -86,7 +104,10 @@ public class ActionBarActivity extends AppCompatActivity {
      * Displays a popup window on top of the current activity.
      *
      * <p>
-     *     Creates a popup window on top of the screen.
+     *     Creates a popup window on top of the screen and
+     *     disables the current activity parent layout, so user cannot
+     *     click outside of the popup window. User have to click either Yes or No
+     *     button inside the popup window to continue.
      * </p>
      *
      * @param v ViewGroup of the entire content area of an activity; root element.

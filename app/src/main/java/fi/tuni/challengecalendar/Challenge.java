@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Challenge object -class, with name and deadline.
+ * Challenge object -class, with id, name, deadline and completion points.
  */
 public class Challenge implements Parcelable, Comparable<Challenge> {
     int id;

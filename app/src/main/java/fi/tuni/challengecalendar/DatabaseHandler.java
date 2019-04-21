@@ -13,6 +13,11 @@ import java.util.List;
 
 /**
  * Class for handling the data in the local database.
+ *
+ * <p>
+ *     SQLite database manager class, which makes all the needed database tables.
+ *     Every action involving the modifying of database tables are done here.
+ * </p>
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -53,7 +58,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Initialization of the database.
      *
      * <p>
-     *     Makes all the database tables with SQL commands.
+     *     Makes all the database tables and their columns with SQL commands.
      * </p>
      *
      * @param db Database to be created locally.
@@ -80,7 +85,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Removes existing tables and creates new ones.
+     * Removes existing tables and creates new ones, with the same name
+     *
+     * <p>
+     *     This method is used to clear all the data from the database.
+     *     Table rows are deleted and new tables are made with empty data.
+     * </p>
      *
      * @param db Database, which holds all the data of the tables.
      * @param oldVersion Version number for previous version.
@@ -142,8 +152,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Deletes a Challenge from the CHALLENGES table.
      *
-     * Deletes a single Challenge from the CHALLENGES table.
+     * <p>
+     *     Deletes a single Challenge from the CHALLENGES table and sort the remaining
+     *     Challenges id:s accordingly.
+     * </p>
      *
      * @param index Id of the Challenge to be deleted.
      * @param size Number of upcoming Challenges.

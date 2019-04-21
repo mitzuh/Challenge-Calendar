@@ -11,12 +11,19 @@ import java.util.List;
  * Activity class for viewing all of the failed Challenges.
  *
  * <p>
- *     Challenge names with their meant to be deadlines are displayed in a list.
+ *     Challenge descriptions with their meant to be deadlines are
+ *     displayed in an array adapter listview.
  * </p>
  */
 public class FailedViewActivity extends ActionBarActivity {
     /**
      * Initialization of the Activity.
+     *
+     * <p>
+     *     Gets all the failed Challenges from the database and puts them
+     *     in an ArrayList. Then displays the Challenges in form
+     *     of the custom array adapter.
+     * </p>
      *
      * @param savedInstanceState Previous state of the application.
      */
