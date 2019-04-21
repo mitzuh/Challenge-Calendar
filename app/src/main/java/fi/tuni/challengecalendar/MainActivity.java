@@ -1,15 +1,20 @@
 package fi.tuni.challengecalendar;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -203,6 +208,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Does action, when menu item is clicked.
      *
+     * <p>
+     *     When settings menu item is clicked on the action bar, display
+     *     it's submenu, which is clear data.
+     *     When clearData menu item is clicked, call method for displaying
+     *     a popup window for data clearing.
+     * </p>
+     *
      * @param item Clicked menu item.
      * @return False.
      */
@@ -216,12 +228,72 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case (R.id.clearData):
-                databaseHandler.onUpgrade(databaseHandler.getWritableDatabase(), 1, 1);
-                finish();
-                startActivity(getIntent());
+                showPopupWindow(getWindow().getDecorView().findViewById(android.R.id.content));
                 return true;
         }
 
         return false;
+    }
+
+    /**
+     * Displays a popup window on top of the current activity.
+     *
+     * <p>
+     *     Creates a popup window on top of the screen.
+     * </p>
+     *
+     * @param v ViewGroup of the entire content area of an activity; root element.
+     */
+    public void showPopupWindow(View v) {
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_window, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, false);
+
+        // show the popup window
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+        // Disable background
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        // Popup window buttons
+        Button clearDataButton = (Button) popupView.findViewById(R.id.clearDataButton);
+        Button dismissButton = (Button) popupView.findViewById(R.id.dismissPopupButton);
+
+        clearDataButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Clears all data from the database, enables the main layout and
+             * restarts the current activity.
+             *
+             * @param v Clicked button.
+             */
+            @Override
+            public void onClick(View v) {
+                databaseHandler.onUpgrade(databaseHandler.getWritableDatabase(), 1, 1);
+                popupWindow.dismiss();
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                finish();
+                startActivity(getIntent());
+            }
+        });
+
+        dismissButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Dismisses the popup window and enables the main layout.
+             *
+             * @param v Clicked Button.
+             */
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
     }
 }
