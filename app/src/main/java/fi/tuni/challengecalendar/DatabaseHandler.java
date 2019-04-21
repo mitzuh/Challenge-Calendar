@@ -62,18 +62,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Challenges
         db.execSQL("CREATE TABLE " + CHALLENGES + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
-                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255), " + KEY_POINTS +
-                " VARCHAR(255))");
+                KEY_NAME + " VARCHAR(100), " + KEY_DATE + " VARCHAR(10), " + KEY_POINTS +
+                " VARCHAR(5))");
 
         // Completed Challenges
         db.execSQL("CREATE TABLE " + COMPLETED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
-                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255), " + KEY_POINTS +
-                " VARCHAR(255))");
+                KEY_NAME + " VARCHAR(100), " + KEY_DATE + " VARCHAR(10), " + KEY_POINTS +
+                " VARCHAR(5))");
 
         // Failed Challenges
         db.execSQL("CREATE TABLE " + FAILED + " ( " + KEY_ID + " INTEGER PRIMARY KEY, " +
-                KEY_NAME + " VARCHAR(255), " + KEY_DATE + " VARCHAR(255), " + KEY_POINTS +
-                " VARCHAR(255))");
+                KEY_NAME + " VARCHAR(100), " + KEY_DATE + " VARCHAR(10), " + KEY_POINTS +
+                " VARCHAR(5))");
 
         // Points
         db.execSQL("CREATE TABLE " + POINTS + " ( " + KEY_AMOUNT + " INTEGER)");

@@ -7,7 +7,8 @@
         android:id="@+id/editText"
         android:hint="Challenge Description"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLength="100"/>
     <EditText
         android:id="@+id/editText2"
         android:hint="Completion points (1-5)"
