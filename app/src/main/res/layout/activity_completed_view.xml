@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:layout_weight="1"
-            android:textSize="30dp"
+            android:autoSizeTextType="uniform"
             android:text="NAME"
             android:background="@drawable/border"/>
         <TextView
@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:layout_weight="1"
-            android:textSize="25dp"
+            android:autoSizeTextType="uniform"
             android:text="COMPLETION DATE"
             android:background="@drawable/border"/>
     </LinearLayout>
