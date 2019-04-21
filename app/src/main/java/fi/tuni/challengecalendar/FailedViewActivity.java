@@ -15,7 +15,7 @@ import java.util.List;
  *     Challenge names with their meant to be deadlines are displayed in a list.
  * </p>
  */
-public class FailedViewActivity extends AppCompatActivity {
+public class FailedViewActivity extends ActionBarActivity {
     /**
      * Initialization of the Activity.
      *
@@ -26,8 +26,7 @@ public class FailedViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_failed_view);
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        List<Challenge> list = db.getFailed();
+        List<Challenge> list = databaseHandler.getFailed();
 
         ListView listView = (ListView) findViewById(R.id.failedView);
 

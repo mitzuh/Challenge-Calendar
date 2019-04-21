@@ -18,7 +18,7 @@ import java.util.List;
  *     Challenge descriptions with their deadlines is displayed in a list.
  * </p>
  */
-public class ChallengeViewActivity extends AppCompatActivity {
+public class ChallengeViewActivity extends ActionBarActivity {
 
     /**
      * Initialization of the Activity.
@@ -32,8 +32,7 @@ public class ChallengeViewActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        List<Challenge> list = db.getChallenges();
+        List<Challenge> list = databaseHandler.getChallenges();
 
         Collections.sort(list);
 

@@ -10,8 +10,7 @@ import android.widget.Toast;
 /**
  * Activity class for adding Challenges to the user.
  */
-public class AddChallengeActivity extends AppCompatActivity {
-    DatabaseHandler databaseHandler;
+public class AddChallengeActivity extends ActionBarActivity {
     EditText editText;
     EditText editText2;
 
@@ -27,7 +26,6 @@ public class AddChallengeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_challenge);
 
-        databaseHandler = new DatabaseHandler(this);
         editText = (EditText) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
 

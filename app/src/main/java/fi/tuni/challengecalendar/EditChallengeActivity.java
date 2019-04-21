@@ -14,9 +14,7 @@ import java.util.List;
 /**
  * Activity class for Challenge completion and deletion.
  */
-public class EditChallengeActivity extends AppCompatActivity {
-    DatabaseHandler databaseHandler;
-
+public class EditChallengeActivity extends ActionBarActivity {
     TextView textView;
     TextView textView2;
 
@@ -31,8 +29,6 @@ public class EditChallengeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_challenge);
-
-        databaseHandler = new DatabaseHandler(this);
 
         Bundle extras = getIntent().getExtras();
 

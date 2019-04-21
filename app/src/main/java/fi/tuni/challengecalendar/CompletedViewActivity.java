@@ -15,7 +15,7 @@ import java.util.List;
  *     Challenge names with their completion dates are displayed in a list.
  * </p>
  */
-public class CompletedViewActivity extends AppCompatActivity {
+public class CompletedViewActivity extends ActionBarActivity {
 
     /**
      * Initialization of the Activity.
@@ -27,8 +27,7 @@ public class CompletedViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed_view);
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        List<Challenge> list = db.getCompleted();
+        List<Challenge> list = databaseHandler.getCompleted();
 
         ListView listView = (ListView) findViewById(R.id.completedView);
 
