@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,19 +18,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChallengeViewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait"/>
         <activity android:name=".AddChallengeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait"/>
         <activity android:name=".EditChallengeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait"/>
         <activity android:name=".CompletedViewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait"/>
         <activity android:name=".FailedViewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait"/>
     </application>
 

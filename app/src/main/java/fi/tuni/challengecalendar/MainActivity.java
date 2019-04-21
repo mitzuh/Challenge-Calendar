@@ -1,9 +1,13 @@
 package fi.tuni.challengecalendar;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -162,5 +167,49 @@ public class MainActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    // MENU
+
+    /**
+     * Initializes the menu bar on top of the screen.
+     * <p>
+     *     Loads the created menu item from the .xml and enables it.
+     * </p>
+     *
+     * @param menu Menu to be initialized.
+     * @return True.
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem m = menu.findItem(R.id.settings);
+        m.setEnabled(true);
+        return true;
+    }
+
+    /**
+     * Inflates the menu item to be displayed in the menu bar.
+     *
+     * @param menu Menu to be inflated.
+     * @return True.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menubar, menu);
+        return true;
+    }
+
+    /**
+     * Does action, when menu item is clicked.
+     *
+     * @param item Clicked menu item.
+     * @return False.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        return false;
     }
 }
