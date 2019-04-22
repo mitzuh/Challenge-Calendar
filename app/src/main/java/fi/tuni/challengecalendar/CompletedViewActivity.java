@@ -2,20 +2,37 @@ package fi.tuni.challengecalendar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompletedViewActivity extends AppCompatActivity {
+/**
+ * Activity for viewing all of the completed Challenges.
+ *
+ * <p>
+ *     Challenge names with their completion dates are displayed in a list.
+ * </p>
+ */
+public class CompletedViewActivity extends ActionBarActivity {
+
+    /**
+     * Initialization of the Activity.
+     *
+     * <p>
+     *     Gets all the completed Challenges from the database and puts them
+     *     in an ArrayList. Then displays the Challenges in form
+     *     of the custom array adapter.
+     * </p>
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed_view);
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        List<Challenge> list = db.getCompleted();
+        List<Challenge> list = databaseHandler.getCompleted();
 
         ListView listView = (ListView) findViewById(R.id.completedView);
 
@@ -29,6 +46,9 @@ public class CompletedViewActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Returns back to Main activity, when the Android back-button is pressed.
+     */
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
