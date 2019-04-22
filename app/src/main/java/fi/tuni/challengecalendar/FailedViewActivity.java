@@ -2,20 +2,37 @@ package fi.tuni.challengecalendar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FailedViewActivity extends AppCompatActivity {
+/**
+ * Activity class for viewing all of the failed Challenges.
+ *
+ * <p>
+ *     Challenge descriptions with their meant to be deadlines are
+ *     displayed in an array adapter listview.
+ * </p>
+ */
+public class FailedViewActivity extends ActionBarActivity {
+    /**
+     * Initialization of the Activity.
+     *
+     * <p>
+     *     Gets all the failed Challenges from the database and puts them
+     *     in an ArrayList. Then displays the Challenges in form
+     *     of the custom array adapter.
+     * </p>
+     *
+     * @param savedInstanceState Previous state of the application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_failed_view);
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        List<Challenge> list = db.getFailed();
+        List<Challenge> list = databaseHandler.getFailed();
 
         ListView listView = (ListView) findViewById(R.id.failedView);
 
@@ -29,6 +46,9 @@ public class FailedViewActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Returns back to Main activity, when the Android back-button is pressed.
+     */
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);

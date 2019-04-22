@@ -5,10 +5,18 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="100px"
-        android:layout_gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/border"/>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="80px"
+        android:gravity="center"
+        android:background="@drawable/border"/>
 
     <Button
         android:id="@+id/markCompletedButton"
