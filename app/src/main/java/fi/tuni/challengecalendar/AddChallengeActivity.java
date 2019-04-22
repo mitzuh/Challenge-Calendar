@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 /**
  * Activity class for adding Challenges to the user.
@@ -18,6 +21,7 @@ import android.widget.Toast;
 public class AddChallengeActivity extends ActionBarActivity {
     EditText editText;
     EditText editText2;
+    TextView challengeText;
 
     String date;
 
@@ -33,9 +37,11 @@ public class AddChallengeActivity extends ActionBarActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
+        challengeText = (TextView) findViewById(R.id.challengeDateText);
 
         Intent intent = getIntent();
         date = intent.getExtras().getString("date");
+        challengeText.setText("Challenge for " + date);
     }
 
     /**
